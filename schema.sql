@@ -81,5 +81,7 @@ create table pluto (
   APPBBL char(10),
   APPDate date,
   PLUTOMapID smallint,
-  PlutoVersion text
+  PlutoVersion text,
+  lat numeric,
+  lng numeric
 )

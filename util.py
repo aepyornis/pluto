@@ -58,7 +58,10 @@ def date_format(datestring):
 
 def type_cast(key, val, lookup):
     datatype = lookup[key].strip()
-    value = val.strip()
+    if val is None:
+        return None
+    else:
+        value = val.strip()
     if value == '':
         return None
     elif key == 'APPBBL' and value == '0':
