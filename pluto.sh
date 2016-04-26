@@ -2,11 +2,66 @@
 
 # createdb pluto
 
-psql -d pluto -f schemas/2003.sql 
+pluto_root="/home/michael/data/pluto/"
 
-for i in /home/michael/data/pluto/*.TXT; do
-    cat $i | perl -pe 's/\x00//g' | python remove_whitespace.py > /tmp/pluto.txt
-    psql -d pluto -c "COPY pluto_03c FROM '/tmp/pluto.txt' WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (LandUse,splitzone,irrlotcode,cornerlot,xcoord,ycoord,schooldist,council))"
-    rm /tmp/pluto.txt
+# psql -d pluto -f schemas/03c.sql 
+
+# for i in /home/michael/data/pluto/03c/*.TXT; do
+#     cat $i | perl -pe 's/\x00//g' | 
+#         python remove_whitespace.py |
+#         psql -d pluto -c "COPY pluto_03c FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (LandUse,splitzone,irrlotcode,cornerlot,xcoord,ycoord,schooldist,council))"
+# done
+
+
+# psql -d pluto -f schemas/04c.sql 
+
+# for i in /home/michael/data/pluto/04c/*.txt; do
+#     cat $i | perl -pe 's/\x00//g' | 
+#         python remove_whitespace.py |
+#         psql -d pluto -c "COPY pluto_04c FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
+# done
+
+# psql -d pluto -f schemas/05d.sql 
+
+# for i in /home/michael/data/pluto/05d/*.txt; do
+#     cat $i | perl -pe 's/\x00//g' | 
+#         python remove_whitespace.py |
+#         psql -d pluto -c "COPY pluto_05d FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
+# done
+
+
+# version="06c"
+# psql -d pluto -f schemas/${version}.sql 
+
+# for i in ${pluto_root}${version}/*.TXT; do
+#      cat $i | perl -pe 's/\x00//g' | 
+#          python remove_whitespace.py |
+#          psql -d pluto -c "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (instregion,LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
+# done
+
+# version="07c"
+# psql -d pluto -f schemas/${version}.sql 
+
+# for i in ${pluto_root}${version}/*.TXT; do
+#     cat $i | perl -pe 's/\x00//g' | 
+#         python remove_whitespace.py |
+#         psql -d pluto -c "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
+# done
+
+# version="09v2"
+# psql -d pluto -f schemas/${version}.sql 
+
+# for i in ${pluto_root}${version}/*.txt; do
+#     cat $i | perl -pe 's/\x00//g' | 
+#         python remove_whitespace.py |
+#         psql -d pluto -c "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (appdate,LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
+# done
+
+version="10v2"
+psql -d pluto -f schemas/${version}.sql 
+
+for i in ${pluto_root}${version}/*.txt; do
+    cat $i | perl -pe 's/\x00//g' | 
+        python remove_whitespace.py |
+        psql -d pluto -c "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (appdate,LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
 done
-
