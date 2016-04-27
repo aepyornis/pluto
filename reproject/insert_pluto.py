@@ -5,7 +5,7 @@ import sys
 import csv
 import glob
 import copy
-from reproject import reproject
+# from reproject import reproject
 
 db_connection_string = os.environ['PLUTO_DB_CONNECTION']
 csv_dir = sys.argv[1]
