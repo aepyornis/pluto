@@ -121,3 +121,9 @@ for i in ${pluto_root}${version}/*.csv; do
         python remove_whitespace.py |
         psql -d pluto -c "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (cd,appdate,LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council))"
 done
+
+# Add BBL to 03c & 04c
+for table in  pluto_03c pluto_04c; do
+    psql -d pluto -c "alter table "${table}" add column bbl char(10)"
+    psql -d pluto -c "UPDATE "${table}" SET bbl = BoroCode || lpad(cast(block as text), 5, '0') || lpad(cast(lot as text), 4, '0')"
+done
