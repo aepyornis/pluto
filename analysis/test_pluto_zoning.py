@@ -11,9 +11,11 @@ def grouped():
     d['lotarea'] = [7,20,50,3,10]
     return pz.group_by_cd_zonetype(pd.DataFrame(d))
 
+
 @pytest.fixture
 def pcts(grouped):
     return pz.calc_percents(grouped)
+
 
 @pytest.fixture
 def init_df():
@@ -97,3 +99,16 @@ def test_keep_only(pcts):
 def test_df_for_ver(mock, init_df, final_df):
     mock.return_value = init_df
     assert pz.df_for_ver('15v1').equals(final_df)
+
+
+
+def test_inner_join():
+    df1 = pd.DataFrame({"v1_R": [1,3,6], "v1_C": [7,3,1]}, index=[101,102,103])
+    df2 = pd.DataFrame({"v2_R": [10,11,12], "v2_C": [20,19,18]}, index=[101,102,103])
+    
+    joined_data = {"v2_R": [10,11,12], "v2_C": [20,19,18], "v1_R": [1,3,6], "v1_C": [7,3,1]}
+    joined = pd.DataFrame(joined_data, index=[101,102,103])
+
+    assert pz.inner_join(df1,df2).equals(joined)
+
+    

@@ -22,14 +22,14 @@ def make_query(ver, cols):
 
 def db_to_df(ver, cols):
     """
-    Creates DataFrame for the pluto verion with the given columns.
+    Creates a DataFrame for the pluto version with the given columns.
     """
     return pd.DataFrame(select(make_query(ver, cols)), columns=cols)
 
 
 def zonetype(df):
     """
-    Add new column, zonetype, which is the first letter of zonedist1.
+    Adds a new column, zonetype, containing the first letter of zonedist1.
     """
     df['zonetype'] = df['zonedist1'].str.slice(start=0, stop=1)
     return df
@@ -44,8 +44,8 @@ def group_by_cd_zonetype(df):
     
 def calc_percents(df):
     """
-    Cacluates the R and M zoning percents. 
-    Assumes the only original numeric columns was lotarea.
+    Calculates the R and M zoning percents. 
+    Assumes the only original numeric column was lotarea.
     """
     df['totalarea'] = df.sum(1)
     df['R_pct'] = df[('lotarea', 'R')] / df['totalarea']
@@ -56,14 +56,14 @@ def calc_percents(df):
 def rename_pct_cols(df, ver):
     """
     Renames the percent columns to be prefaced with the version.
-    I.e. R_pct becomes 15v1_R_pct
+    i.e. R_pct becomes 15v1_R_pct
     """
     return df.rename(columns={'R_pct': ver + '_R_pct', 'M_pct': ver + '_M_pct'})
 
 
 def keep_only(df, ver, cols):
     """
-    Changes multi-index to single index and drops all columns except the one provided.
+    Changes the multi-index to single index and drops all columns except the ones passed in.
     The version is appended to the front of the col.
     """
     df.columns = df.columns.droplevel(1)
@@ -84,8 +84,12 @@ def df_for_ver(ver):
 
 
 # df -> df
-def inner_join(df):
-    pass
+def inner_join(df1, df2):
+    """
+    Joins two pluto DataFrames together, similar to a sql 'inner join'
+    """
+    return pd.merge(df1, df2, how='inner', left_index=True, right_index=True)
+    
 
 
 def zoning_timeseries(vers):
