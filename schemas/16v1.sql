@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS pluto_15v1;
+DROP TABLE IF EXISTS pluto_16v1;
 
-create table pluto_15v1 (
+create table pluto_16v1 (
   Borough text,
   Block integer,
   Lot integer,
@@ -13,6 +13,9 @@ create table pluto_15v1 (
   FireComp text,
   PolicePrct text,
   HealthArea text,
+  SanitBoro char(1),
+  SanitDistrict smallint,
+  SanitSub char(2),
   Address text,
   ZoneDist1 text,
   ZoneDist2 text,
@@ -85,5 +88,5 @@ create table pluto_15v1 (
   PLUTOMapID char(1),
   Version text,
   lng numeric,
-  lat numeric                                
+  lat numeric
 );
