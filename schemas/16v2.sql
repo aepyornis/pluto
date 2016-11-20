@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS pluto_16v1;
+DROP TABLE IF EXISTS pluto_16v2;
 
-create table pluto_16v1 (
+create table pluto_16v2 (
   Borough text,
   Block integer,
   Lot integer,
@@ -25,9 +25,8 @@ create table pluto_16v1 (
   Overlay2 text,
   SPDist1 text,
   SPDist2 text,
+  SPDist3 text,
   LtdHeight text,
-  AllZoning1 text,
-  AllZoning2 text,
   SplitZone boolean,
   BldgClass char(2),
   LandUse smallint,
@@ -63,7 +62,6 @@ create table pluto_16v1 (
   ExemptLand bigint,
   ExemptTotal bigint,
   YearBuilt smallint,
-  BuiltCode char(1),
   YearAlter1 smallint,
   YearAlter2 smallint,
   HistDist text,
