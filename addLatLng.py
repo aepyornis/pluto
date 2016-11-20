@@ -28,10 +28,10 @@ if __name__ == "__main__":
             row.append('')
             row.append('')
         else:
-            lng, lat = reproject(float(x),float(y))
+            lng, lat = reproject(float(x), float(y))
             row.append(lng)
-            row.append(lat);
-                    
+            row.append(lat)
+                   
         csvwriter.writerow(row)
 
 

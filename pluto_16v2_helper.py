@@ -1,6 +1,6 @@
 """
-This version of pluto contain some integer fields that have '.00' appended to the end of them.
-This script removes the '.00'.
+This version of pluto contains some integer fields that have '.00' appended to the end of them.
+This script removes the '.00'
 """
 import sys
 import csv
