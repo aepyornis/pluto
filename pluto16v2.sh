@@ -14,4 +14,6 @@ for i in ${pluto_root}${version}/*.csv; do
         execute_sql_cmd "COPY pluto_"${version}" FROM STDIN WITH (FORMAT csv, HEADER TRUE, NULL '', FORCE_NULL (cd,appdate,LandUse,splitzone,irrlotcode,xcoord,ycoord,schooldist,council,lng,lat,sanitdistrict))"
 done
 
+execute_sql_cmd "CREATE INDEX ON pluto16v2 (bbl)"
+
 deactivate
